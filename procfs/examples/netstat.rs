@@ -23,6 +23,8 @@ fn main() {
         }
     }
 
+    print!("\n\n\n\n\\n");
+
     // get the tcp table
     let tcp = procfs::net::tcp().unwrap();
     let tcp6 = procfs::net::tcp6().unwrap();

@@ -483,7 +483,9 @@ impl Process {
                 Mode::empty()
             )
         )?;
+        println!("dir_fd: {:?}", dir_fd);
         let dir = wrap_io_error!(self.root.join("fd"), rustix::fs::Dir::read_from(&dir_fd))?;
+        println!("dir: {:?}", dir);
         Ok(FDsIter {
             inner: dir,
             inner_fd: dir_fd,
@@ -902,6 +904,7 @@ impl std::iter::Iterator for FDsIter {
             match self.inner.next() {
                 Some(Ok(entry)) => {
                     let name = entry.file_name().to_string_lossy();
+                    println!("name: {:?}", name);
                     if let Ok(fd) = RawFd::from_str(&name) {
                         if let Ok(info) = FDInfo::from_process_at(&self.root, self.inner_fd.as_fd(), name.as_ref(), fd)
                         {
