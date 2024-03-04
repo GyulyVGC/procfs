@@ -224,6 +224,9 @@ impl Process {
     /// Returns a `Process` based on a specified `/proc/<pid>` path.
     pub fn new_with_root(root: PathBuf) -> ProcResult<Process> {
         // for 2.6.39 <= kernel < 3.6 fstat doesn't support O_PATH see https://github.com/eminence/procfs/issues/265
+        println!("Kernel: {:?}", crate::KERNEL);
+        println!("Root: {:?}", root);
+        println!("CWD: {:?}", rustix::fs::CWD);
         let flags = match *crate::KERNEL {
             Ok(v) if v < KernelVersion::new(3, 6, 0) => OFlags::DIRECTORY | OFlags::CLOEXEC,
             Ok(_) => OFlags::PATH | OFlags::DIRECTORY | OFlags::CLOEXEC,
