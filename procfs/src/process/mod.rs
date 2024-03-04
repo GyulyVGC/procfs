@@ -483,6 +483,7 @@ impl Process {
                 Mode::empty()
             )
         )?;
+        println!("proc.pid: {:?}", self.pid);
         println!("proc.fd: {:?}", self.fd);
         println!("dir_fd: {:?}", dir_fd);
         let dir = wrap_io_error!(self.root.join("fd"), rustix::fs::Dir::read_from(&dir_fd))?;
