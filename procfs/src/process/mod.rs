@@ -237,7 +237,7 @@ impl Process {
             Err(_) => {
                 println!("case3");
                 OFlags::PATH | OFlags::DIRECTORY | OFlags::CLOEXEC
-            },,
+            },
         };
         let file = wrap_io_error!(root, rustix::fs::openat(rustix::fs::CWD, &root, flags, Mode::empty()))?;
 
